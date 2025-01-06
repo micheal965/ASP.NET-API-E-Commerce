@@ -1,0 +1,13 @@
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\bin\Debug\net8.0\Talabat.Core.deps.json
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\bin\Debug\net8.0\Talabat.Core.dll
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\bin\Debug\net8.0\Talabat.Core.pdb
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.AssemblyInfoInputs.cache
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.AssemblyInfo.cs
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.csproj.CoreCompileInputs.cache
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.dll
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\refint\Talabat.Core.dll
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.pdb
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\ref\Talabat.Core.dll
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.csproj.AssemblyReference.cache
+C:\Users\MICHEAL\source\repos\Talabat.Solution\Talabat.Core\obj\Debug\net8.0\Talabat.Core.sourcelink.json
