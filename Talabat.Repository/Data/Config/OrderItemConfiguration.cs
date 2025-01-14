@@ -14,6 +14,7 @@ namespace Talabat.Repository.Data.Config
             //encapsulating product into orderitem
             builder.OwnsOne(OI => OI.Product, product => product.WithOwner());
 
+
             builder.HasOne(oi => oi.Order)
                .WithMany(o => o.Items)
                .HasForeignKey(oi => oi.OrderId);

@@ -8,5 +8,7 @@ namespace Talabat.APIs.DTOs.Basket
         [Required]
         public string Id { get; set; }
         public List<BasketItemDto> BasketProducts { get; set; }
+        public int DeliveryMethodId { get; set; }
+
     }
 }

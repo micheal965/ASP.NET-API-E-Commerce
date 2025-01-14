@@ -12,7 +12,7 @@ namespace Talabat.Core.IRepositories
         Task<int> GetCountAsync(ISpecifications<T> spec);
         Task AddAsync(T entity);
         void Update(T entity);
-        void DeleteAsync(T entity);
+        void Delete(T entity);
 
     }
 }

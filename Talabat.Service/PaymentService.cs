@@ -54,7 +54,7 @@ namespace Talabat.Service
             {
                 var options = new PaymentIntentCreateOptions()
                 {
-                    Amount = (long)Basket.BasketProducts.Sum(item => (item.Price * 100 * item.Quantity) + Basket.ShippingPrice * 100),
+                    Amount = (long)Basket.BasketProducts.Sum(item => (item.Price * 100 * item.Quantity)) + (long)(Basket.ShippingPrice * 100),
                     Currency = "usd",
                     PaymentMethodTypes = new List<string> { "card" },
 
@@ -70,7 +70,7 @@ namespace Talabat.Service
             {
                 var options = new PaymentIntentUpdateOptions()
                 {
-                    Amount = (long)Basket.BasketProducts.Sum(item => (item.Price * 100 * item.Quantity) + Basket.ShippingPrice * 100),
+                    Amount = (long)Basket.BasketProducts.Sum(item => (item.Price * 100 * item.Quantity)) + (long)(Basket.ShippingPrice * 100),
 
                 };
                 paymentIntent = await service.UpdateAsync(Basket.PaymentIntentId, options);
@@ -78,7 +78,6 @@ namespace Talabat.Service
 
             await _basketRepository.UpdateBasketAsync(Basket);
             return Basket;
-
         }
     }
 }

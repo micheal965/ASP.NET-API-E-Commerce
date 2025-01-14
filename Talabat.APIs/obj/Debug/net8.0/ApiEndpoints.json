@@ -352,7 +352,7 @@
   {
     "ContainingType": "Talabat.APIs.Controllers.PaymentController",
     "Method": "CreateOrUpdatePaymentIntent",
-    "RelativePath": "api/Payment/CreateOrUpdatePaymentIntent",
+    "RelativePath": "api/Payment/CreateOrUpdatePaymentIntent/{BasketId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -360,7 +360,7 @@
       {
         "Name": "BasketId",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [

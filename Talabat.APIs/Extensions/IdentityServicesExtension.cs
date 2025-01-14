@@ -32,10 +32,10 @@ namespace Talabat.APIs.Extensions
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["JwtSettings:Issuer"], // Match issuer from the JWT
+                    ValidIssuer = configuration["JwtSettings:Issuer"],
 
                     ValidateAudience = true,
-                    ValidAudience = configuration["JwtSettings:Audience"], // Match audience from the JWT
+                    ValidAudience = configuration["JwtSettings:Audience"],
 
                     ValidateLifetime = true, // Ensure the token has not expired
                     ClockSkew = TimeSpan.FromMinutes(5), // Grace period to account for clock differences between client and server

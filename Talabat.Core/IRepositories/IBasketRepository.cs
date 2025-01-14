@@ -7,5 +7,6 @@ namespace Talabat.Core.IRepositories
         public Task<CustomerBasket?> GetBasketAsync(string Basketid);
         public Task<bool> DeleteBasketAsync(string Basketid);
         public Task<CustomerBasket?> UpdateBasketAsync(CustomerBasket Basket);
+
     }
 }
