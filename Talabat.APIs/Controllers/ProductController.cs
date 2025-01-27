@@ -22,17 +22,17 @@ namespace Talabat.APIs.Controllers
             _productService = productService;
             Mapper = mapper;
         }
+        [CachedAttribute(600)]
         [ProducesResponseType(typeof(ProductToReturnDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-
-        [HttpGet]
+        [HttpGet("GetProducts")]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery] ProductSpecParams productSpecParams)
         {
             var products = await _productService.GetProductsAsync(productSpecParams);
             if (products == null)
                 return NotFound(new ApiResponse(StatusCodes.Status404NotFound));
 
-            //count data after filteration210
+            //count data after filteration
             var ProductFilterationSpec = new ProductSpecifications(productSpecParams.BrandId,
                                                                    productSpecParams.CategoryId,
                                                                    productSpecParams.SearchName);
@@ -48,9 +48,10 @@ namespace Talabat.APIs.Controllers
             return Ok(new Pagination<ProductToReturnDto>(productSpecParams.pageindex, productSpecParams.PageSize, count, data));
         }
 
+        [CachedAttribute(600)]
         [ProducesResponseType(typeof(ProductToReturnDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [HttpGet("{Id}", Name = "GetProductById")]
+        [HttpGet("GetProductById")]
         public async Task<ActionResult<ProductToReturnDto>> GetProductById(int Id)
         {
             var Product = await _productService.GetProductAsync(Id);
@@ -60,6 +61,7 @@ namespace Talabat.APIs.Controllers
             return Ok(Mapper.Map<Product, ProductToReturnDto>(Product));
         }
 
+        [CachedAttribute(600)]
         [ProducesResponseType(typeof(Brand), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [HttpGet("GetBrands")]
@@ -72,9 +74,10 @@ namespace Talabat.APIs.Controllers
             return Ok(Brands);
         }
 
-        [HttpGet("GetCategories")]
+        [CachedAttribute(600)]
         [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [HttpGet("GetCategories")]
         public async Task<ActionResult<IReadOnlyList<Category>>> GetCaregories()
         {
             var Categories = await _productService.GetCategoriesAsync();

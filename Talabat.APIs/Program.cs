@@ -11,6 +11,9 @@ using Talabat.Repository.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Talabat.Core.Entities.Email;
+using Talabat.Core.IServices;
+using Talabat.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +46,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(s =>
 
 
 //Add ApplicationServices
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddAppServices();
 
 //Add IdentityServices
@@ -59,6 +64,7 @@ await Migrate_SeedingData.Migrate_Seed(app);
 #region Configure Kestrel Middlewares
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<TokenBlacklistMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     //Using swagger services

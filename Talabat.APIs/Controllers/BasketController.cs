@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIs.DTOs.Basket;
 using Talabat.APIs.Errors;
+using Talabat.APIs.Helpers;
 using Talabat.Core.Entities;
 using Talabat.Core.IRepositories;
 
@@ -20,9 +21,7 @@ namespace Talabat.APIs.Controllers
             _mapper = mapper;
         }
 
-
-        //Get existing one (with data or empty after expiring time)
-        [HttpGet]//basket?Id=
+        [HttpGet("GetBasketById")]//basket?Id=
         public async Task<ActionResult<CustomerBasket>> GetBasketById(string Id)
         {
             CustomerBasket? Basket = await basketRepository.GetBasketAsync(Id);
@@ -30,8 +29,8 @@ namespace Talabat.APIs.Controllers
         }
 
         //Create for the first time or Update 
-        [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasketDto customerBasket)
+        [HttpPost("CreateOrUpdateBasket")]
+        public async Task<ActionResult<CustomerBasket>> CreateOrUpdateBasket(CustomerBasketDto customerBasket)
         {
             CustomerBasket Basket = _mapper.Map<CustomerBasketDto, CustomerBasket>(customerBasket);
 
@@ -42,10 +41,19 @@ namespace Talabat.APIs.Controllers
             return Ok(UpdatedOrCreatedBasket);
         }
 
-        [HttpDelete]//Basket?Id=
-        public async Task<ActionResult<bool>> DeleteBasket(string Id)
+        [HttpDelete("DeleteBasket")]
+        public async Task<IActionResult> DeleteBasket(string id)
         {
-            return await basketRepository.DeleteBasketAsync(Id);
+            if (string.IsNullOrEmpty(id))
+                return BadRequest(new ApiResponse(StatusCodes.Status400BadRequest, "Basket ID cannot be null or empty."));
+
+            bool result = await basketRepository.DeleteBasketAsync(id);
+
+            if (result)
+                return Ok(new ApiResponse(StatusCodes.Status200OK, "Basket deleted successfully."));
+            else
+                return NotFound(new ApiResponse(StatusCodes.Status404NotFound, "Basket not found."));
         }
+
     }
 }

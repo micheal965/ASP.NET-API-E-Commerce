@@ -4272,7 +4272,6 @@
       "Microsoft.EntityFrameworkCore >= 8.0.11",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.11",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.11",
-      "StackExchange.Redis >= 2.8.16",
       "Talabat.Core >= 1.0.0"
     ]
   },
@@ -4338,10 +4337,6 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.11, )"
-          },
-          "StackExchange.Redis": {
-            "target": "Package",
-            "version": "[2.8.16, )"
           }
         },
         "imports": [

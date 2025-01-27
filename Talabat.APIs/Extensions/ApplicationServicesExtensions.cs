@@ -8,9 +8,8 @@ using Talabat.Core.IRepositories;
 using Talabat.Core.IServices;
 using Talabat.Repository;
 using Talabat.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Talabat.APIs.Extensions
 {
@@ -24,6 +23,13 @@ namespace Talabat.APIs.Extensions
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IPaymentService, PaymentService>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
+
+            //caching
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 
             services.AddAutoMapper(typeof(MappingProfiles));
             services.Configure<ApiBehaviorOptions>(options =>

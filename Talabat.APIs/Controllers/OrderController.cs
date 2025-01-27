@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Talabat.APIs.DTOs.Order;
 using Talabat.APIs.Errors;
+using Talabat.APIs.Helpers;
 using Talabat.Core.Entities.Order_Aggregate;
 using Talabat.Core.IServices;
 
@@ -25,7 +26,7 @@ namespace Talabat.APIs.Controllers
         }
 
         [HttpPost("Checkout")]
-        [ProducesResponseType<Order>(StatusCodes.Status200OK)]
+        [ProducesResponseType<OrderDto>(StatusCodes.Status200OK)]
         [ProducesResponseType<ApiResponse>(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<OrderDto>> CreateAsync(OrderDto orderDto)
         {
@@ -37,21 +38,24 @@ namespace Talabat.APIs.Controllers
             return Ok(orderDto);
         }
 
+        [CachedAttribute(600)]
         [HttpGet("GetAllOrdersForUser")]
-        [ProducesResponseType<Order>(StatusCodes.Status200OK)]
+        [ProducesResponseType<OrderToReturnDto>(StatusCodes.Status200OK)]
         [ProducesResponseType<ApiResponse>(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>> GetAllOrdersForUser()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var orders = await _orderService.GetOrdersForUserAsync(email);
             var ordertoreturnDto = _mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders);
-            if (orders == null)
+            if (orders is null)
                 return NotFound(new ApiResponse(StatusCodes.Status404NotFound));
-            return Ok(ordertoreturnDto);
+            return Ok(new { value = ordertoreturnDto, statusCode = StatusCodes.Status200OK });
         }
+
+        [CachedAttribute(600)]
         [HttpGet("GetOrderForUser")]
-        [ProducesResponseType<Order>(StatusCodes.Status200OK)]
-        [ProducesResponseType<ApiResponse>(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType<OrderToReturnDto>(StatusCodes.Status200OK)]
+        //[ProducesResponseType<ApiResponse>(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<OrderToReturnDto>> GetOrderForUser(int orderId)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -59,13 +63,14 @@ namespace Talabat.APIs.Controllers
             var orderToReturnDto = _mapper.Map<Order, OrderToReturnDto>(order);
             if (orderToReturnDto == null)
                 return NotFound(new ApiResponse(StatusCodes.Status404NotFound));
-            return Ok(orderToReturnDto);
+            return Ok(new { value = orderToReturnDto, statusCode = StatusCodes.Status200OK });
         }
 
+        [CachedAttribute(600)]
         [HttpGet("GetDeliveryMethods")]
         [ProducesResponseType<DeliveryMethod>(StatusCodes.Status200OK)]
         [ProducesResponseType<ApiResponse>(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IReadOnlyList<DeliveryMethod?>>> GetDeliveryMethods()
+        public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
         {
             var delivermethods = await _orderService.GetDeliveryMethods();
             if (delivermethods == null)

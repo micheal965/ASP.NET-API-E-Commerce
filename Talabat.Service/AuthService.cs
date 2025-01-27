@@ -11,12 +11,15 @@ namespace Talabat.Service
 {
     public class AuthService : IAuthService
     {
+        private static readonly HashSet<string> BlacklistedTokens = new();
         private readonly IConfiguration _configuration;
 
         public AuthService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+
         public async Task<string> CreateWebToken(ApplicationUser user, UserManager<ApplicationUser> userManager)
         {
             #region Claims For Token
@@ -42,5 +45,17 @@ namespace Talabat.Service
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<bool> IsTokenBlacklistedAsync(string token)
+        {
+            await Task.Delay(100);
+            return BlacklistedTokens.Contains(token);
+        }
+        public async Task AddToBlacklistAsync(string token)
+        {
+            await Task.Delay(100);
+            BlacklistedTokens.Add(token);
+        }
+
     }
 }
